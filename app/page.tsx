@@ -17,7 +17,7 @@ export default function Home() {
 
     //Get Menu Items
     const fetchMenuItems = async ()=>{
-        const res = await fetch('http://localhost:3000/api/menu')
+        const res = await fetch('/api/menu')
         if(!res.ok){
             setError(true)
         }
@@ -44,7 +44,7 @@ export default function Home() {
         e.preventDefault()
         const formData = new FormData(e.currentTarget);
         const body = Object.fromEntries(formData)
-        const post = await fetch('http://localhost:3000/api/menu',{
+        const post = await fetch('/api/menu',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(body)
@@ -68,7 +68,7 @@ export default function Home() {
     }
 
     const deleteMenu = async (id:any)=>{
-        const del = await fetch(`http://localhost:3000/api/${id}`,{
+        const del = await fetch(`/api/${id}`,{
             method: 'DELETE',
         })
 
@@ -93,7 +93,7 @@ export default function Home() {
 
     const submitEdit = async (id:any)=>{
 
-        const editMenu = await fetch(`http://localhost:3000/api/${id}`,{
+        const editMenu = await fetch(`/api/${id}`,{
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(itemsValue)
@@ -135,7 +135,7 @@ export default function Home() {
                 <TabPanel>
                     <div className="grid grid-cols-4 gap-5 mt-5">
                         {fetchMenu.length ? (fetchMenu.map((items)=>(
-                            <>
+                            <span key={items.id}>
                             {editId === items.id ? (
                             <div key={items.id} className="bg-[#111828] rounded-xl relative">
                                 <div className="relative">
@@ -199,7 +199,7 @@ export default function Home() {
                                 </div>
                             </div>
                             )}
-                            </>
+                            </span>
                         ))):(<h1 className='text-white'>No Items...</h1>)}
                     </div>
                 </TabPanel>
